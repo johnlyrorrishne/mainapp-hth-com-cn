@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>炸金花游戏 · 稳定入口与页面说明</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(145deg, #fff3e0 0%, #fce4c8 60%, #fdebd0 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      line-height: 1.6;
+      color: #2e241f;
+    }
+
+    .page-wrapper {
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .card-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(2px);
+      border-radius: 36px;
+      padding: 2.2rem 2.5rem;
+      box-shadow: 0 18px 30px -10px rgba(140, 80, 30, 0.15),
+                  0 8px 12px rgba(0,0,0,0.02);
+      border: 1px solid rgba(255, 235, 210, 0.6);
+      transition: all 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 22px 36px -12px rgba(150, 80, 20, 0.18);
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    /* hero 主视觉卡片 */
+    .hero-card {
+      text-align: center;
+      padding: 2.8rem 2.5rem 2.5rem;
+      background: linear-gradient(135deg, #fbf3ea, #ffffff);
+    }
+
+    .hero-card h1 {
+      font-size: 2.6rem;
+      font-weight: 580;
+      letter-spacing: -0.02em;
+      color: #3b281f;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-card .sub {
+      font-size: 1.15rem;
+      color: #6f5543;
+      background: #e9d8c9d9;
+      display: inline-block;
+      padding: 0.2rem 1.2rem;
+      border-radius: 40px;
+      backdrop-filter: blur(4px);
+      font-weight: 450;
+      margin-top: 0.2rem;
+    }
+
+    .hero-card p {
+      margin-top: 1.4rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 1.1rem;
+      color: #4c3a2d;
+    }
+
+    .hero-card .hero-em {
+      display: inline-block;
+      margin-top: 0.6rem;
+      background: #ddc4b0;
+      color: #2f2019;
+      padding: 0.2rem 1.6rem;
+      border-radius: 60px;
+      font-size: 0.95rem;
+      font-weight: 450;
+    }
+
+    /* 两列并排卡片 */
+    .double-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+    }
+
+    .card h2 {
+      font-size: 1.5rem;
+      font-weight: 520;
+      letter-spacing: -0.01em;
+      border-left: 6px solid #bc8f6b;
+      padding-left: 1rem;
+      margin-bottom: 1.2rem;
+      color: #3b2c1f;
+    }
+
+    .card p {
+      margin-bottom: 0.9rem;
+      color: #3f3026;
+    }
+
+    .card ul {
+      list-style: none;
+    }
+
+    .card ul li {
+      position: relative;
+      padding-left: 1.6rem;
+      margin-bottom: 0.55rem;
+      color: #4b392c;
+    }
+
+    .card ul li::before {
+      content: "·";
+      position: absolute;
+      left: 0.3rem;
+      color: #b2805b;
+      font-weight: bold;
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+
+    /* 融合链接段落卡片 */
+    .link-card {
+      background: #faf1e6;
+      padding: 1.8rem 2.5rem;
+    }
+
+    .link-card p {
+      font-size: 1.05rem;
+      color: #3a2b21;
+    }
+
+    .link-card a {
+      color: #5f3f28;
+      background: #eedbcb;
+      padding: 0.1rem 0.8rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+      display: inline-block;
+      line-height: 1.8;
+      border: 1px solid #dbbca5;
+    }
+
+    .link-card a:hover {
+      background: #dbbca5;
+      color: #1e140f;
+    }
+
+    /* 适合人群卡片内嵌标签 */
+    .audience-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1rem;
+      margin: 1rem 0 0.2rem;
+    }
+
+    .audience-tags span {
+      background: #e9d5c0;
+      padding: 0.2rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      color: #2d1f16;
+    }
+
+    .faq-mini {
+      margin-top: 1.2rem;
+      background: #f3e6da;
+      padding: 1.2rem 1.6rem;
+      border-radius: 30px;
+    }
+
+    .faq-mini details {
+      margin-bottom: 0.6rem;
+    }
+
+    .faq-mini details summary {
+      font-weight: 500;
+      cursor: pointer;
+      color: #422e20;
+      padding: 0.2rem 0;
+    }
+
+    .faq-mini details p {
+      margin: 0.4rem 0 0.2rem 0.8rem;
+      font-size: 0.95rem;
+      color: #4d392a;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #6c5543;
+      opacity: 0.75;
+    }
+
+    /* 响应式 */
+    @media (max-width: 700px) {
+      body {
+        padding: 1.2rem;
+      }
+
+      .double-cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .card {
+        padding: 1.8rem 1.5rem;
+      }
+
+      .hero-card {
+        padding: 2rem 1.5rem;
+      }
+
+      .hero-card h1 {
+        font-size: 2rem;
+      }
+
+      .link-card {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-card h1 {
+        font-size: 1.8rem;
+      }
+
+      .card h2 {
+        font-size: 1.3rem;
+        padding-left: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="card-grid">
+
+    <!-- 主视觉 hero 卡片 -->
+    <div class="card hero-card">
+      <h1>🎴 炸金花 · 熟悉与稳定</h1>
+      <div class="sub">流畅的页面 · 直接的说明</div>
+      <p>
+        这里是一个安静的介绍页，帮助你了解 <strong>炸金花游戏</strong> 的基本面貌、适合哪些朋友，
+        以及如何通过自然的方式抵达对应的页面。不夸大，不诱导，只提供温和的指引。
+      </p>
+      <span class="hero-em">信息卡片 · 平实入口</span>
+    </div>
+
+    <!-- 两列：用途卡片 + 适合人群 -->
+    <div class="double-cards">
+      <!-- 用途卡片 -->
+      <div class="card">
+        <h2>📌 页面用途</h2>
+        <p>这个页面并非游戏本身，而是一个<strong>介绍与索引</strong>位置。你可以在这里了解：</p>
+        <ul>
+          <li>炸金花游戏的大致风格与常见场景</li>
+          <li>怎样的网络环境或习惯更适合体验</li>
+          <li>如何通过下方链接，平稳地前往主页面</li>
+          <li>一些常见疑问的简要回答（见FAQ）</li>
+        </ul>
+        <p style="margin-top: 0.8rem;">我们希望你先有基本的了解，再决定是否进一步。</p>
+      </div>
+
+      <!-- 适合人群卡片 -->
+      <div class="card">
+        <h2>👥 适合人群</h2>
+        <p>炸金花游戏的受众很广泛，但以下朋友可能会觉得更对味：</p>
+        <div class="audience-tags">
+          <span>休闲牌类爱好者</span>
+          <span>喜欢公平随机性</span>
+          <span>短局制娱乐</span>
+          <span>朋友间轻竞技</span>
+          <span>熟悉经典玩法</span>
+        </div>
+        <p style="margin-top: 0.8rem;">当然，如果你只是好奇或想了解规则，这里同样欢迎。</p>
+        <div class="faq-mini">
+          <details>
+            <summary>❓ 需要注册或下载吗？</summary>
+            <p>通常网页端可直接体验，部分功能可能需简单注册。具体以页面提示为准。</p>
+          </details>
+          <details>
+            <summary>❓ 适合新手吗？</summary>
+            <p>规则简单明了，几分钟就能上手。建议先看玩法说明或低注局尝试。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <!-- 自然链接段落卡片 -->
+    <div class="card link-card">
+      <p>
+        若你希望进一步了解或体验，可以前往
+        <a href="https://index-goldenflower.com">炸金花游戏</a>
+        的页面。那里提供了完整的界面与功能，这个介绍页只是它的一个安静前奏。
+        请根据你自己的节奏与判断，决定是否继续。
+      </p>
+      <p style="margin-top: 0.6rem;">
+        不论你选择停留还是离开，都希望这段介绍让你感到清晰、没有压力。
+      </p>
+    </div>
+
+    <!-- 补充提示卡片（融合在节奏里） -->
+    <div class="card" style="background: #f6ece1;">
+      <h2>☕ 一些温和提示</h2>
+      <p>
+        炸金花游戏是一种基于概率与心理的牌类娱乐，适合在放松时与朋友一起，
+        或者独自体验随机带来的微妙趣味。请保持适度，享受过程本身。
+      </p>
+      <p>
+        本页面不收集任何信息，也不嵌入跟踪代码。它只是一个静态介绍，帮助你在访问主要站点前有一个稳定的心理预期。
+      </p>
+    </div>
+
+    <div class="footer-note">
+      — 静态说明页 · 内容克制 · 方向清晰 —
+    </div>
+  </div>
+</div>
+</body>
+</html>
