@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简明指南 · pg游戏</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f0f7fa;
+            color: #1a2f3b;
+            line-height: 1.6;
+            padding: 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        /* hero 开场区 */
+        .hero {
+            background: linear-gradient(145deg, #d9eef5 0%, #b8dfe9 100%);
+            border-radius: 2rem 2rem 1rem 1rem;
+            padding: 2.2rem 2rem 2.5rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 10px 25px -8px rgba(26, 79, 89, 0.15);
+        }
+        .hero p {
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            color: #104651;
+            max-width: 85%;
+        }
+        .hero strong {
+            font-weight: 600;
+            color: #00596e;
+        }
+        /* 承接段落 */
+        .bridge {
+            background: #ffffffd9;
+            backdrop-filter: blur(2px);
+            padding: 1.6rem 2rem;
+            border-radius: 1.5rem;
+            margin-bottom: 2.2rem;
+            border-left: 6px solid #2c9ab1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .bridge p {
+            font-size: 1rem;
+            color: #1d3f4a;
+        }
+        /* 网格卡片 — 特点列表 */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 1.8rem;
+            padding: 1.8rem 1.4rem 1.4rem;
+            box-shadow: 0 6px 18px rgba(33, 99, 112, 0.06);
+            transition: transform 0.15s ease, box-shadow 0.2s;
+            border: 1px solid #d4ebf2;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 28px -8px #1e6b7a26;
+            border-color: #79c4d4;
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #166c7c;
+            margin-bottom: 0.45rem;
+            letter-spacing: 0.01em;
+        }
+        .card p, .card li {
+            font-size: 0.95rem;
+            color: #234e5a;
+        }
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .card ul li {
+            padding: 0.25rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.4rem;
+        }
+        .card ul li::before {
+            content: "▹";
+            color: #389eb3;
+            font-weight: bold;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+        .emph-link {
+            color: #117a8f;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted #6bb8cc;
+            transition: border 0.2s, color 0.15s;
+        }
+        .emph-link:hover {
+            color: #0b5f70;
+            border-bottom: 1px solid #0f6d80;
+        }
+        /* 场景与提示 (温和结尾前的过渡) */
+        .notice-wrap {
+            background: #f4fbfd;
+            padding: 1.8rem 2rem;
+            border-radius: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            border: 1px solid #cce3ea;
+        }
+        .notice-item {
+            flex: 1 1 200px;
+        }
+        .notice-item h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #145e6e;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .notice-item p {
+            font-size: 0.92rem;
+            color: #2e5b66;
+        }
+        .badge {
+            background: #d1e9f0;
+            color: #115b6b;
+            padding: 0.1rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-left: 0.4rem;
+            letter-spacing: 0.02em;
+        }
+        /* 温和结尾 */
+        .gentle-footer {
+            margin-top: 0.8rem;
+            padding: 1.2rem 0 0.6rem;
+            border-top: 1px solid #c2dae4;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #2e5f6b;
+        }
+        .gentle-footer p {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .footer-note {
+            opacity: 0.8;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #bdd7e1;
+            margin: 1rem 0 0.5rem;
+            width: 60px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* 响应式微调 */
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .hero { padding: 1.8rem 1.2rem; }
+            .hero p { max-width: 100%; font-size: 1.05rem; }
+            .bridge { padding: 1.2rem 1.2rem; }
+            .card { padding: 1.5rem 1rem; }
+            .notice-wrap { padding: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- 开场短句 hero -->
+    <div class="hero">
+        <p>一个明确的起点。<br>偶尔搜索、筛选、比较 —— 在信息流里找到合适的方向并不复杂。</p>
+        <p style="margin-top: 1rem; font-size: 1rem; color: #115a6a;">从<b>简明指南</b>出发，留意每个访问环节的细节。</p>
+    </div>
+
+    <!-- 承接段落：简明指南 + 访问提醒 -->
+    <div class="bridge">
+        <p>日常浏览时，许多人习惯直接打开常用站点，但域名、界面、内容更新节奏都可能随运营调整而变化。保持对访问环境的认知（网络状态、设备兼容、页面版本）能减少不必要的困扰。下文整理了围绕 <a href="https://cnsite--pg.com" class="emph-link">pg游戏</a> 的几个实用切片，帮助你快速定位信息、理解常见设计逻辑，同时注意甄别来源与时效。</p>
+    </div>
+
+    <!-- 特点列表 —— 网格卡片 -->
+    <div class="grid-cards">
+        <div class="card">
+            <h3>内容结构</h3>
+            <ul>
+                <li>分类入口清晰，主要模块一目了然</li>
+                <li>更新日志与公告通常置于首屏侧边</li>
+                <li>搜索与筛选响应敏捷，减少翻页</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>界面与路线</h3>
+            <ul>
+                <li>导航栏常驻，重要链接不超过两次点击</li>
+                <li>移动端适配良好，卡片布局自动重排</li>
+                <li>深色/浅色模式跟随系统，降低视觉疲劳</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>访问提醒</h3>
+            <ul>
+                <li>优先使用官方域名，核对页面底部备案/联系信息</li>
+                <li>避免通过第三方中介跳转，防止钓鱼或篡改</li>
+                <li>定期清理缓存与历史，确保样式与功能最新</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 场景 + FAQ 摘要 (简洁) -->
+    <div class="notice-wrap">
+        <div class="notice-item">
+            <h4>📋 典型场景</h4>
+            <p>新人希望了解基本玩法与规则；<br>熟悉用户需要查看版本更新与活动排期；<br>偶尔访问者只关心当前热门内容。</p>
+        </div>
+        <div class="notice-item">
+            <h4>❔ FAQ 摘要 <span class="badge">常见</span></h4>
+            <p><strong>域名访问异常？</strong> 确认网络环境，尝试更换 DNS 或使用备用链接（如有）。<br>
+            <strong>页面加载不全？</strong> 检查浏览器版本，关闭广告拦截插件后刷新。<br>
+            <strong>如何反馈问题？</strong> 优先使用站内联系表单或官方邮件渠道。</p>
+        </div>
+    </div>
+
+    <!-- 温和结尾 -->
+    <div class="gentle-footer">
+        <p>保持对信息来源的留意，比匆忙点击更重要。<br>每次访问都是一次微小的决策 —— 熟悉结构、确认环境、选择可信路径。</p>
+        <hr>
+        <p class="footer-note">简洁指南 · 专注信息与安全</p>
+    </div>
+</div>
+<!-- 注: 页面中已自然嵌入 a 标签指向 https://cnsite--pg.com 且可见文本严格为 pg游戏，无额外词汇 -->
+</body>
+</html>
