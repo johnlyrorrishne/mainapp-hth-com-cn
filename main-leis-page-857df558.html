@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雷速 · 资料索引聚合</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f5fafc;
+            color: #1a2a33;
+            line-height: 1.65;
+            padding: 2rem 1.25rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .page-wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* hero 区 */
+        .hero {
+            margin-bottom: 2.8rem;
+        }
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: #0f3b45;
+            margin-bottom: 0.6rem;
+            line-height: 1.25;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: #2b5b68;
+            max-width: 720px;
+            border-left: 4px solid #1f8a9c;
+            padding-left: 1.1rem;
+            background: #e5f3f6;
+            border-radius: 0 8px 8px 0;
+            padding: 0.9rem 1.2rem;
+        }
+
+        /* 网格卡片 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin: 2.2rem 0 2.8rem;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 1.6rem 1.4rem 1.8rem;
+            box-shadow: 0 4px 12px rgba(25, 90, 100, 0.06);
+            border: 1px solid #d9eef2;
+            transition: box-shadow 0.2s, transform 0.15s;
+        }
+        .card:hover {
+            box-shadow: 0 8px 22px rgba(25, 110, 125, 0.10);
+            transform: translateY(-2px);
+            border-color: #96d0d9;
+        }
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0f4c59;
+            margin-bottom: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .card h3::before {
+            content: "▹";
+            color: #1f8a9c;
+            font-weight: 400;
+            font-size: 1.3rem;
+            margin-right: 0.2rem;
+        }
+        .card p {
+            font-size: 0.96rem;
+            color: #2b4f5b;
+            margin-bottom: 0.6rem;
+        }
+        .card .badge {
+            display: inline-block;
+            background: #d3eef3;
+            color: #0f4c59;
+            font-size: 0.78rem;
+            font-weight: 500;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            margin-top: 0.2rem;
+        }
+
+        /* 使用建议区域 (分栏) */
+        .advice-wrap {
+            background: #e2f1f5;
+            border-radius: 24px;
+            padding: 1.8rem 1.8rem 2rem;
+            margin: 2.2rem 0 2.5rem;
+        }
+        .advice-wrap h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #0f3b45;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid #b5dae2;
+            padding-bottom: 0.4rem;
+        }
+        .advice-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem 2rem;
+        }
+        .advice-item {
+            background: #ffffffd9;
+            padding: 0.7rem 1rem 0.8rem;
+            border-radius: 14px;
+            border-left: 4px solid #1f8a9c;
+        }
+        .advice-item strong {
+            color: #0f4c59;
+            display: block;
+            font-weight: 600;
+            font-size: 0.98rem;
+            margin-bottom: 0.1rem;
+        }
+        .advice-item span {
+            font-size: 0.9rem;
+            color: #1e4d5b;
+        }
+
+        /* 提示/FAQ 摘要 */
+        .faq-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            margin: 2rem 0 2.4rem;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 1.6rem 1.6rem 1.8rem;
+            border: 1px solid #cbe4ea;
+        }
+        .faq-summary h2 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #0f4c59;
+            margin-bottom: 0.2rem;
+        }
+        .faq-item {
+            border-bottom: 1px dashed #cde3e9;
+            padding: 0.4rem 0 0.7rem;
+        }
+        .faq-item:last-child {
+            border-bottom: 0;
+        }
+        .faq-q {
+            font-weight: 600;
+            color: #0f4c59;
+            font-size: 0.98rem;
+        }
+        .faq-a {
+            font-size: 0.91rem;
+            color: #295b68;
+            margin-top: 0.15rem;
+        }
+
+        /* 可信说明 + 链接 */
+        .note {
+            background: #f0f9fb;
+            border-radius: 20px;
+            padding: 1.4rem 1.6rem;
+            margin: 1.8rem 0 2rem;
+            border: 1px solid #badbe3;
+            font-size: 0.95rem;
+            color: #174c59;
+        }
+        .note a {
+            color: #1d7990;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid #7ebbcb;
+            transition: border-color 0.15s;
+        }
+        .note a:hover {
+            border-bottom-color: #0f4c59;
+            color: #0f4c59;
+        }
+
+        /* footer */
+        .footer {
+            margin-top: 2.5rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid #cee5eb;
+            font-size: 0.82rem;
+            color: #4c7a86;
+            text-align: center;
+        }
+
+        /* 响应式 */
+        @media (max-width: 680px) {
+            body { padding: 1.2rem 1rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 0.98rem; padding: 0.7rem 1rem; }
+            .advice-grid { grid-template-columns: 1fr; }
+            .card { padding: 1.2rem 1rem; }
+            .faq-summary { padding: 1.2rem; }
+        }
+        @media (max-width: 450px) {
+            .grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+    <section class="hero">
+        <h1>资料索引 · 信息整理</h1>
+        <p>从大量内容中梳理出有效线索，保持结构清晰、查找便捷。这里以 <strong>雷速</strong> 聚合方向为例，展示一种索引式的内容组织方式。</p>
+    </section>
+
+    <div class="grid">
+        <div class="card">
+            <h3>摘要聚合</h3>
+            <p>将分散在多个来源的信息提取要点，按主题归类。每条摘要均标注来源与时间，方便回溯核对。</p>
+            <span class="badge">约 300+ 条目</span>
+        </div>
+        <div class="card">
+            <h3>交叉索引</h3>
+            <p>在同类内容之间建立关联，比如术语对照、事件脉络、数据出处。减少重复查找，提高整合效率。</p>
+            <span class="badge">双向链接</span>
+        </div>
+        <div class="card">
+            <h3>结构标签</h3>
+            <p>为每条记录分配标签层级（领域 / 子类 / 状态），支持按标签过滤，适应不同深度的查阅习惯。</p>
+            <span class="badge">三级分类</span>
+        </div>
+        <div class="card">
+            <h3>版本记录</h3>
+            <p>每次内容更新保留快照与变更说明，方便追踪资料演变，也便于多人协作时对齐认知。</p>
+            <span class="badge">持续维护</span>
+        </div>
+    </div>
+
+    <div class="advice-wrap">
+        <h2>使用建议</h2>
+        <div class="advice-grid">
+            <div class="advice-item">
+                <strong>按需检索</strong>
+                <span>先定位标签或关键词，再展开对应摘要，避免一次性浏览全部内容。</span>
+            </div>
+            <div class="advice-item">
+                <strong>参考原始出处</strong>
+                <span>索引摘要仅为引导，重要判断建议核对原文或数据源。</span>
+            </div>
+            <div class="advice-item">
+                <strong>定期复查</strong>
+                <span>资料具有时效性，标记为「待更新」的条目建议每月回看。</span>
+            </div>
+            <div class="advice-item">
+                <strong>组合标签使用</strong>
+                <span>同时选择 2–3 个标签可缩小范围，提高命中率。</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-summary">
+        <h2>常见索引问题 · 简短说明</h2>
+        <div class="faq-item">
+            <div class="faq-q">❓ 资料收录范围是什么？</div>
+            <div class="faq-a">主要收录与「雷速」主题相关的公开文章、产品文档、社区讨论及行业观察，不包含未核实或主观推测内容。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">❓ 更新频率如何？</div>
+            <div class="faq-a">核心索引每月刷新一次，重要变动会随时补充并标注修订日期。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">❓ 能否贡献或纠错？</div>
+            <div class="faq-a">欢迎通过反馈渠道提交遗漏或修正建议，核实后会更新索引并致谢。</div>
+        </div>
+    </div>
+
+    <div class="note">
+        <p>本页面所涉及的资料索引均基于可公开获取的信息整理，不构成投资、使用或决策建议。如需了解 <a href="https://main-leis.com">雷速</a> 的完整产品信息、服务条款及最新动态，建议直接查阅其官方站点。索引中的摘要内容可能存在时效性差异，请以原始来源为准。</p>
+    </div>
+
+    <footer class="footer">
+        <span>索引维护 · 内容更新于 2025 · 仅供信息参考</span>
+    </footer>
+</div>
+</body>
+</html>
